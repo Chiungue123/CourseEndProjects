@@ -6,7 +6,7 @@ import java.util.*;
 public class Participant {
 	
 	// Declare Variables
-	private String id;
+	private Integer id;
 	private String name;
 	private ArrayList<Batch> batches;
 	private String email;
@@ -16,7 +16,7 @@ public class Participant {
 		
 	}
 	
-	Participant(String name, ArrayList<Batch> batches, String id, String email){
+	Participant(String name, ArrayList<Batch> batches, Integer id, String email){
 		this.name = name;
 		this.batches = batches;
 		this.id = id;
@@ -40,11 +40,11 @@ public class Participant {
 		this.batches = batches;
 	}
 
-	public String getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
