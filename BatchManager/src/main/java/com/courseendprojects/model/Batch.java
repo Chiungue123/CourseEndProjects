@@ -6,13 +6,12 @@ public class Batch {
 
 	// Declare Variables
 	private Integer batchID;
-	private String name;
-	private ArrayList<Participant> participants;
-	private String timeSlot;
-	
+	private String name = "";
+	private ArrayList<Participant> participants = new ArrayList<>();
+	private String timeSlot = "";
 	
 	public Batch() {
-		
+	
 	}
 	
 	public Batch(ArrayList<Participant> participants, String name, String timeSlot, Integer batchID) {

@@ -2,6 +2,8 @@ package com.courseendprojects.controller;
 
 import java.io.IOException;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,16 +25,20 @@ public class BatchController extends HttpServlet {
 		String action = request.getParameter("action");
 		
 		if ("Create".equals(action)) {
-			System.out.println("doGet");
-			System.out.println("Action: " + action);
 			
 			// Forward to JSP
 			request.getRequestDispatcher("createBatch.jsp").forward(request, response);
 			
 		} else if ("View".equals(action)) {
 			
+			// Get batches, add as an attribute
+			BatchDAO batchDAO = new BatchDAO();
+			List<Batch> result = batchDAO.getBatches();
+			request.setAttribute("batches", result);
+			
+			System.out.println("List of Batches: " + result);
 			// Forward to JSP
-			request.getRequestDispatcher("viewsBatch.jsp").forward(request, response);
+			request.getRequestDispatcher("viewBatches.jsp").forward(request, response);
 			
 		} else if ("Update".equals(action)) {
 			
@@ -80,6 +86,8 @@ public class BatchController extends HttpServlet {
 				
 			} catch (Exception e) {
 				
+				System.out.println("BatchController: Error Creating Batch: " + batch);
+
 				ErrorStatus error = new ErrorStatus();
 				error.setAction("Create Batch");
 				error.setErrorMessage("Error" + e);
@@ -89,21 +97,12 @@ public class BatchController extends HttpServlet {
 				
 			}
 			
-			
 			if (rowsAffected > 0) {	
 				status.setSuccess(true);
 				status.setAction("Create Batch");
 				status.setMessage("Batch Succesfully Created: " + batch.toString());	
 				request.setAttribute("status", status);
 				request.getRequestDispatcher("result.jsp").forward(request, response);
-				
-			} else {
-				
-				status.setSuccess(false);
-				status.setAction("Create Batch");
-				status.setMessage("Invalid Input");				
-				request.setAttribute("status", status);
-				request.getRequestDispatcher("error.jsp").forward(request, response);
 			}
 			
 		} else if ("View".equals(action)) {
