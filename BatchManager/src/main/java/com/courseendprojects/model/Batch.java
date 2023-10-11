@@ -53,5 +53,13 @@ public class Batch {
 	public void setBatchID(Integer batchID) {
 		this.batchID = batchID;
 	}
+
+	@Override
+	public String toString() {
+		return "Batch [batchID=" + batchID + ", name=" + name + ", participants=" + participants + ", timeSlot="
+				+ timeSlot + "]";
+	}
+	
+	
 	
 }

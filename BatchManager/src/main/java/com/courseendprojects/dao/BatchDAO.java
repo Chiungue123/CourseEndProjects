@@ -11,9 +11,9 @@ import com.courseendprojects.model.Batch;
 
 public class BatchDAO {
 	
-	private String url = System.getenv("DB_URL");
-	private String user = System.getenv("DB_USER");
-	private String pass = System.getenv("DB_PASS");
+	private final static String URL = System.getenv("DB_URL");
+	private final static String USER = System.getenv("DB_USER");
+	private final static String PASS = System.getenv("DB_PASS");
 	
 	Database db = new Database();
 	
@@ -22,7 +22,7 @@ public class BatchDAO {
 		int rowsAffected = 0;
 		String sql = "INSERT INTO BATCH (batchID, name, timeSlot)"
 					+"VALUES(null,?,?)";
-		try (Connection con = DriverManager.getConnection(url, user, pass);
+		try (Connection con = DriverManager.getConnection(URL, USER, PASS);
 			 PreparedStatement prst = con.prepareStatement(sql)) {
 			
 			prst.setString(2, batch.getName());
@@ -32,7 +32,9 @@ public class BatchDAO {
 			
 		} catch(SQLException e) {
 			System.out.println("Error Creating Branch: "+  e);
-			System.out.println("Stack Trace: ");
+			System.out.println("DB URL: " + URL);
+			System.out.println("DB USER: " + USER);
+			System.out.println("DB PASS: " + PASS);
 			e.printStackTrace();
 		}
 		
@@ -45,7 +47,7 @@ public class BatchDAO {
 		ResultSet result = null;
 		String sql = "SELECT * FROM BATCH";
 		
-		try (Connection con = DriverManager.getConnection(url, user, pass);
+		try (Connection con = DriverManager.getConnection(URL, USER, PASS);
 			 PreparedStatement prst = con.prepareStatement(sql)) {
 			
 			result = prst.executeQuery();
@@ -66,7 +68,7 @@ public class BatchDAO {
 		int rowsAffected = 0;
 		String sql = "UPDATE BATCH SET name = ?, timeSlot = ? WHERE batchID = ?";
 		
-		try (Connection con = DriverManager.getConnection(url, user, pass);
+		try (Connection con = DriverManager.getConnection(URL, USER, PASS);
 			 PreparedStatement prst = con.prepareStatement(sql)) {
 			
 			prst.setString(1, newBatch.getName());
@@ -90,7 +92,7 @@ public class BatchDAO {
 		int rowsAffected = 0;
 		String sql = "DELETE BATCH WHERE batchID = ?";
 		
-		try (Connection con = DriverManager.getConnection(url, user, pass);
+		try (Connection con = DriverManager.getConnection(URL, USER, PASS);
 			 PreparedStatement prst = con.prepareStatement(sql)) {
 			
 			prst.setInt(1, batchID);

@@ -1,7 +1,6 @@
 <html>
   <body>
-	<h2>Batch Manager Menu</h2>
-	<br><br>
+	<h1>Batch Manager Menu</h1>
 	<h3>Participants</h3>
 	<a href="Participant?action=Create">Create Participant</a>
 	<a href="Participant?action=View">View Participants</a>
