@@ -101,7 +101,7 @@ public class BatchDAO {
 	// TODO: Delete Batch
 	public int deleteBatch(int batchID) {
 		int rowsAffected = 0;
-		String sql = "DELETE BATCH WHERE batchID = ?";
+		String sql = "DELETE FROM BATCH WHERE BATCHID = ?";
 		
 		try (Connection con = DriverManager.getConnection(URL, USER, PASS);
 			 PreparedStatement prst = con.prepareStatement(sql)) {

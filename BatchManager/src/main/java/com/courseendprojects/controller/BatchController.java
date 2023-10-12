@@ -43,7 +43,7 @@ public class BatchController extends HttpServlet {
 		} else if ("Update".equals(action)) {
 			
 			// Forward to JSP
-			request.getRequestDispatcher("updateBatch.jsp").forward(request, response);
+			request.getRequestDispatcher("updateBatches.jsp").forward(request, response);
 			
 		} else if ("Delete".equals(action)) {
 			
@@ -57,11 +57,12 @@ public class BatchController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String action = request.getParameter("action");
+		OperationStatus status = new OperationStatus();
 		int rowsAffected = 0;
 		
 		if ("Create".equals(action)) {
 			// Create Batch and Operation Status object
-			OperationStatus status = new OperationStatus();
+			
 			Batch batch = new Batch();
 			
 			try {
@@ -112,14 +113,74 @@ public class BatchController extends HttpServlet {
 			
 		} else if ("Update".equals(action)) {
 			
-			// Forward to JSP
-			request.getRequestDispatcher("result.jsp").forward(request, response);
+			// Get Parameters
+			String id = request.getParameter("batchID");	
+			String name = request.getParameter("name");
+			String timeSlot = request.getParameter("timeSlot");
+			
+			// Convert String to Integer
+			int idInt = Integer.parseInt(id);
+			
+			// Create new Batch Object
+			Batch newBatch = new Batch();
+			newBatch.setBatchID(idInt);
+			newBatch.setName(name);
+			newBatch.setTimeSlot(timeSlot);
+			
+			// Execute Update
+			try {
+				BatchDAO batchDAO = new BatchDAO();
+				rowsAffected = batchDAO.updateBatch(idInt, newBatch);
+				
+			} catch(Exception e) {
+				ErrorStatus error = new ErrorStatus();
+				error.setAction("Update Batch");
+				error.setErrorMessage("Error: " + e);
+				
+				request.setAttribute("errorStatus", error);
+				request.getRequestDispatcher("error.jsp").forward(request, response);
+			}
+			
+			// Set Operation Status
+			if (rowsAffected > 0) {	
+				status.setSuccess(true);
+				status.setAction("Update Batch");
+				status.setMessage("Batch Succesfully Updated. Updated Value: " + newBatch.toString());	
+				request.setAttribute("status", status);
+				request.getRequestDispatcher("result.jsp").forward(request, response);
+			}
 			
 		} else if ("Delete".equals(action)) {
 			
-			// Forward to JSP
-			request.getRequestDispatcher("result.jsp").forward(request, response);
+			// Get Parameters
+			String batchID = request.getParameter("batchID");
 			
+			// Convert String to Integer
+			int idInt = Integer.parseInt(batchID);
+			
+			// Execute Update
+			try {
+				BatchDAO batchDAO = new BatchDAO();
+				rowsAffected = batchDAO.deleteBatch(idInt);
+				
+			} catch(Exception e) {
+				System.out.println("BatchController: Error Deleting Branch");
+				ErrorStatus error = new ErrorStatus();
+				error.setAction("Update Batch");
+				error.setErrorMessage("Error: " + e);
+				
+				request.setAttribute("errorStatus", error);
+				request.getRequestDispatcher("error.jsp").forward(request, response);
+			}
+			
+			// Set Operation Status
+			if (rowsAffected > 0) {	
+				status.setSuccess(true);
+				status.setAction("Deleted Batch");
+				status.setMessage("Batch Succesfully Deleted: ");	
+				request.setAttribute("status", status);
+				request.getRequestDispatcher("result.jsp").forward(request, response);
+			}	
 		}
 	}
 

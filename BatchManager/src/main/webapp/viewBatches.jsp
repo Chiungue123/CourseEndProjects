@@ -13,7 +13,6 @@
 
     <h1>Batches</h1>
     <table border="1">
-        <!-- Table header -->
         <thead>
             <tr>
                 <th>Batch ID</th>
@@ -21,7 +20,6 @@
                 <th>Time Slot</th>
             </tr>
         </thead>
-        <!-- Table body -->
         <tbody>
         <% for(Batch batch : batches) { %>  <!-- Iterating through the List<Batch> -->
             <tr>
