@@ -17,6 +17,7 @@
             <tr>
                 <th>Batch ID</th>
                 <th>Name</th>
+             	<th>Participants</th>
                 <th>Time Slot</th>
             </tr>
         </thead>
@@ -25,6 +26,7 @@
             <tr>
                 <td><%= batch.getBatchID() %></td> <!-- Using getters to fetch the attributes -->
                 <td><%= batch.getName() %></td>
+                <td><%= batch.getParticipants() %></td>
                 <td><%= batch.getTimeSlot() %></td>
             </tr>
         <% } %>

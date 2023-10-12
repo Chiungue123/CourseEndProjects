@@ -7,15 +7,20 @@ public class Participant {
 	
 	// Declare Variables
 	private Integer id;
-	private String name;
-	private ArrayList<Batch> batches;
-	private String email;
+	private String name = "";
+	private ArrayList<Batch> batches = new ArrayList<>();
+	private String email = "";
 	
 	// Constructors
-	Participant(){
+	public Participant(){
 		
 	}
 	
+	@Override
+	public String toString() {
+		return "Participant [id=" + id + ", name=" + name + ", batches=" + batches + ", email=" + email + "]";
+	}
+
 	Participant(String name, ArrayList<Batch> batches, Integer id, String email){
 		this.name = name;
 		this.batches = batches;

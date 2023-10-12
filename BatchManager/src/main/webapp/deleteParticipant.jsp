@@ -4,13 +4,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Delete Batch</title>
+<title>Delete Participant</title>
 </head>
 <body>
-    <h1>Delete Batch</h1>
-    <form action="Batch" method="POST">
-        <label for="batchID">Batch ID:</label>
-        <input type="number" id="batchID" name="batchID" required><br><br>
+    <h1>Delete Participant</h1>
+    <form action="Participant" method="POST">
+        <label for="participantID">Participant ID:</label>
+        <input type="number" id="participantID" name="id" required><br><br>
         
         <input type="hidden" name="action" value="Delete">
         

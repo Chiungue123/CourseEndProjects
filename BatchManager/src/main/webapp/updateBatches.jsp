@@ -26,5 +26,7 @@
         
         <input type="submit" value="Update">
     </form>
+    <br>
+    <p>Misclicked? <a href="index.jsp">Go Back</a></p>
 </body>
 </html>

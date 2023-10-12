@@ -10,6 +10,7 @@ import java.util.List;
 
 import com.courseendprojects.db.Database;
 import com.courseendprojects.model.Batch;
+import com.courseendprojects.utils.ErrorStatus;
 
 public class BatchDAO {
 	
@@ -34,10 +35,7 @@ public class BatchDAO {
 			rowsAffected = db.executeUpdate(prst);
 			
 		} catch(SQLException e) {
-			//System.out.println("Error Creating Branch: "+  e);
-			System.out.println("DB URL: " + URL);
-			System.out.println("DB USER: " + USER);
-			System.out.println("DB PASS: " + PASS);
+			System.out.println("Error Creating Branch: "+  e);
 			e.printStackTrace();
 		}
 		

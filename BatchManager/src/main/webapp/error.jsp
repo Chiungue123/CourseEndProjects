@@ -10,7 +10,7 @@
 <body>
     <% ErrorStatus errorStatus = (ErrorStatus)request.getAttribute("errorStatus"); %>
     <h2>Error Status</h2>
-    <br><br>
+    <br>
     <p>Action: <%= errorStatus.getAction() %></p>
     <p>Error Message: <%= errorStatus.getErrorMessage() %></p>
     <br>
