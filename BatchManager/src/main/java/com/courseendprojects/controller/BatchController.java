@@ -3,6 +3,7 @@ package com.courseendprojects.controller;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -12,7 +13,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.courseendprojects.dao.BatchDAO;
+import com.courseendprojects.dao.BatchSignUpDAO;
+import com.courseendprojects.dao.ParticipantDAO;
 import com.courseendprojects.model.Batch;
+import com.courseendprojects.model.Participant;
 import com.courseendprojects.utils.OperationStatus;
 import com.courseendprojects.utils.ErrorStatus;
 
@@ -31,12 +35,23 @@ public class BatchController extends HttpServlet {
 			
 		} else if ("View".equals(action)) {
 			
-			// Get batches, add as an attribute
+			BatchSignUpDAO dao = new BatchSignUpDAO();
 			BatchDAO batchDAO = new BatchDAO();
-			List<Batch> result = batchDAO.getBatches();
-			request.setAttribute("batches", result);
 			
-			System.out.println("List of Batches: " + result);
+			List<Batch> batches = batchDAO.getBatches();
+			
+			for (Batch b: batches) {
+				Integer id = b.getBatchID();
+				List<Integer> participantIDs = dao.getBatchParticipantIDs(id);
+				System.out.println("Participant IDs: " + participantIDs);
+				
+				List<Participant> enrolledParticipants = dao.getEnrolledParticipants(id, participantIDs);
+				System.out.println("Batch: " + id + "| Enrolled Participants: " + enrolledParticipants);
+				b.setParticipants(enrolledParticipants);
+			}
+			
+			request.setAttribute("batches", batches);
+			
 			// Forward to JSP
 			request.getRequestDispatcher("viewBatches.jsp").forward(request, response);
 			
@@ -61,7 +76,6 @@ public class BatchController extends HttpServlet {
 		int rowsAffected = 0;
 		
 		if ("Create".equals(action)) {
-			// Create Batch and Operation Status object
 			
 			Batch batch = new Batch();
 			

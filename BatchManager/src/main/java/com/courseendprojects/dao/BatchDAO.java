@@ -14,9 +14,13 @@ import com.courseendprojects.utils.ErrorStatus;
 
 public class BatchDAO {
 	
-	private final static String URL = System.getenv("DB_URL");
-	private final static String USER = System.getenv("DB_USER");
-	private final static String PASS = System.getenv("DB_PASS");
+	// private final static String URL = System.getenv("DB_URL");
+	// private final static String USER = System.getenv("DB_USER");
+	// private final static String PASS = System.getenv("DB_PASS");
+	
+	private final static String URL = "jdbc:mysql://localhost:3306/java_projects";
+	private final static String USER = "root";
+	private final static String PASS = "root1";
 	
 	Database db = new Database();
 	
@@ -25,6 +29,7 @@ public class BatchDAO {
 		int rowsAffected = 0;
 		String sql = "INSERT INTO BATCH (batchID, name, timeSlot)"
 					+"VALUES(null,?,?)";
+		
 		try (Connection con = DriverManager.getConnection(URL, USER, PASS);
 			 PreparedStatement prst = con.prepareStatement(sql)) {
 			
@@ -39,12 +44,11 @@ public class BatchDAO {
 			e.printStackTrace();
 		}
 		
-		//System.out.println("addBatch: " + rowsAffected + " rows affected");
 		return rowsAffected;
 	}
 	
 	// TODO: Read Batch
-	public List<Batch> getBatches () {
+	public List<Batch> getBatches() {
 		List<Batch> batches = new ArrayList<>();
 		ResultSet result = null;
 		String sql = "SELECT * FROM BATCH";
@@ -92,7 +96,6 @@ public class BatchDAO {
 			e.printStackTrace();
 		}
 		
-		System.out.println("updateBatch: " + rowsAffected + " rows affected");
 		return rowsAffected;
 	}
 	
@@ -114,7 +117,6 @@ public class BatchDAO {
 			e.printStackTrace();
 		}
 		
-		System.out.println("deleteBatch: " + rowsAffected + " rows affected");
 		return rowsAffected;
 	}
 }

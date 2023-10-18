@@ -14,10 +14,13 @@ import com.courseendprojects.model.Participant;
 
 public class ParticipantDAO {
 	
-	private final static String URL = System.getenv("DB_URL");
-	private final static String USER = System.getenv("DB_USER");
-	private final static String PASS = System.getenv("DB_PASS");
+	// private final static String URL = System.getenv("DB_URL");
+	// private final static String USER = System.getenv("DB_USER");
+	// private final static String PASS = System.getenv("DB_PASS");
 	
+	private final static String URL = "jdbc:mysql://localhost:3306/java_projects";
+	private final static String USER = "root";
+	private final static String PASS = "root1";
 	
 	Database db = new Database();
 	
@@ -43,6 +46,32 @@ public class ParticipantDAO {
 		}
 		
 		return rowsAffected;
+	}
+	
+	// TODO: Get ParticipantByID
+	public Participant getParticipantByID(int id) {
+		
+		ResultSet result = null;
+		String sql = "SELECT * FROM PARTICIPANT WHERE ID = ?";
+		Participant participant = new Participant();
+		
+		try (Connection con = DriverManager.getConnection(URL, USER, PASS);
+			 PreparedStatement prst = con.prepareStatement(sql)) {
+				
+				prst.setInt(1, id);
+				result = db.executeQuery(prst);
+            
+            	participant.setId(result.getInt("id"));
+            	participant.setName(result.getString("name"));
+            	participant.setEmail(result.getString("email"));
+				
+			} catch (SQLException e) {
+				System.out.println("Error Getting Participants: " + e);
+				System.out.print("Stack Trace: ");
+				e.printStackTrace();
+			}
+		
+		return participant;
 	}
 	
 	// TODO: Read Participant

@@ -28,6 +28,6 @@
         <input type="submit" value="Create Batch">
     </form>
 
-    <p>Misclicked? <a href="index.jsp">Go Back</a></p>
-</body>
+    <p>Miss Clicked? <a href="index.jsp">Go Back</a></p>
+</body> 
 </html>

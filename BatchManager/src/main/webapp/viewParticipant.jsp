@@ -3,16 +3,17 @@
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.courseendprojects.model.Participant" %>
+<%@ page import="com.courseendprojects.model.Batch" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>View Participant</title>
+<title>View Participants</title>
 </head>
 <body>
 	<% List<Participant> participants = (List<Participant>) request.getAttribute("participants"); %>
 
-    <h1>Batches</h1>
+    <h1>Participants</h1>
     <table border="1">
         <thead>
             <tr>
@@ -24,10 +25,15 @@
         </thead>
         <tbody>
         <% for(Participant participant : participants) { %>  <!-- Iterating through the List<Participant> -->
+            <% List<Batch> batches = participant.getBatches(); %>
             <tr>
                 <td><%= participant.getId() %></td> <!-- Using getters to fetch the attributes -->
                 <td><%= participant.getName() %></td>
-                <td><%= participant.getBatches() %></td>
+                <td>
+                <% for(Batch b : batches) { %>
+                	 <%= b.getName() %>, 
+                <% } %>
+                </td>
                 <td><%= participant.getEmail() %></td>
             </tr>
         <% } %>

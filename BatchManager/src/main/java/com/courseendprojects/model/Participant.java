@@ -2,13 +2,12 @@ package com.courseendprojects.model;
 
 import java.util.*;
 
-
 public class Participant {
 	
 	// Declare Variables
 	private Integer id;
 	private String name = "";
-	private ArrayList<Batch> batches = new ArrayList<>();
+	private List<Batch> batches = new ArrayList<>();
 	private String email = "";
 	
 	// Constructors
@@ -20,8 +19,12 @@ public class Participant {
 	public String toString() {
 		return "Participant [id=" + id + ", name=" + name + ", batches=" + batches + ", email=" + email + "]";
 	}
+	
+	public String display() {
+		return "ID: " + id + ", Name: " + name;
+	}
 
-	Participant(String name, ArrayList<Batch> batches, Integer id, String email){
+	Participant(String name, List<Batch> batches, Integer id, String email){
 		this.name = name;
 		this.batches = batches;
 		this.id = id;
@@ -37,11 +40,11 @@ public class Participant {
 		this.name = name;
 	}
 	
-	public ArrayList<Batch> getBatches() {
+	public List<Batch> getBatches() {
 		return batches;
 	}
 	
-	public void setBatches(ArrayList<Batch> batches) {
+	public void setBatches(List<Batch> batches) {
 		this.batches = batches;
 	}
 

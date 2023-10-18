@@ -5,7 +5,7 @@
 	<a href="Participant?action=Create">Create Participant</a>
 	<a href="Participant?action=View">View Participants</a>
 	<a href="Participant?action=Update">Update Participant</a>
-	<a href="Participant?action=Delete">Delete Participent</a>
+	<a href="Participant?action=Delete">Delete Participant</a>
 	<br>
 	<h3>Batches</h3>
 	<a href="Batch?action=Create">Create Batch</a>

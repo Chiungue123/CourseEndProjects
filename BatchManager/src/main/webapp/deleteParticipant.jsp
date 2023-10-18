@@ -17,6 +17,6 @@
         <input type="submit" value="Delete">
     </form>
     <br>
-    <p>Misclicked? <a href="index.jsp">Go Back</a></p>
+    <p>Miss Clicked? <a href="index.jsp">Go Back</a></p>
 </body>
 </html>

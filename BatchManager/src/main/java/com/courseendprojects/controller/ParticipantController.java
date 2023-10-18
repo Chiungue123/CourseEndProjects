@@ -9,7 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.courseendprojects.dao.BatchSignUpDAO;
 import com.courseendprojects.dao.ParticipantDAO;
+import com.courseendprojects.model.Batch;
 import com.courseendprojects.model.Participant;
 import com.courseendprojects.utils.ErrorStatus;
 import com.courseendprojects.utils.OperationStatus;
@@ -29,9 +31,19 @@ public class ParticipantController extends HttpServlet {
 			
 		} else if ("View".equals(action)) {
 			
-			// Get Participants & Set Attribute
+			BatchSignUpDAO dao = new BatchSignUpDAO();
 			ParticipantDAO participantDAO = new ParticipantDAO();
+			
 			List<Participant> participants = participantDAO.getParticipants();
+			
+			for (Participant p: participants) {
+				Integer id = p.getId();
+				List<Integer> batchIDs = dao.getParticipantBatchIDs(id);
+				List<Batch> batches = dao.getEnrolledBatches(id, batchIDs);
+				
+				p.setBatches(batches);
+			}
+			
 			request.setAttribute("participants", participants);
 			
 			// Forward to JSP

@@ -7,7 +7,7 @@ public class Batch {
 	// Declare Variables
 	private Integer batchID;
 	private String name = "";
-	private ArrayList<Participant> participants = new ArrayList<>();
+	private List<Participant> participants = new ArrayList<>();
 	private String timeSlot = "";
 	
 	public Batch() {
@@ -21,11 +21,11 @@ public class Batch {
 		this.batchID = batchID;
 	}
 
-	public ArrayList<Participant> getParticipants() {
+	public List<Participant> getParticipants() {
 		return participants;
 	}
 
-	public void setParticipants(ArrayList<Participant> participants) {
+	public void setParticipants(List<Participant> participants) {
 		this.participants = participants;
 	}
 
@@ -58,7 +58,4 @@ public class Batch {
 		return "Batch [batchID=" + batchID + ", name=" + name + ", participants=" + participants + ", timeSlot="
 				+ timeSlot + "]";
 	}
-	
-	
-	
 }
