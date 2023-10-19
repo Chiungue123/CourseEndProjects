@@ -32,9 +32,8 @@ public class BatchSignUpDAO {
 			 PreparedStatement prst = con.prepareStatement(sql)) {
 			
 			for (Participant p: selectedParticipants) {
-				System.out.println("Scheduling Participant:  " + p.toString() + " with batchID " + batchID);
 				prst.setInt(1, batchID);
-				prst.setInt(2, p.getId());	
+				prst.setInt(2, p.getId());
 			
 				prst.addBatch();
 			}
@@ -46,11 +45,47 @@ public class BatchSignUpDAO {
 			System.out.print("Stack Trace: ");
 			e.printStackTrace();
 		}
+		return rowsAffected;
+	}
+	
+	public int[] removeBatchParticipants(int batchID, ArrayList<Participant> selectedParticipants) {
 		
+		int[] rowsAffected = {};
+		String sql = "DELETE FROM BATCH_PARTICIPANT WHERE PARTICIPANTID = ? AND BATCHID = ?";
+		
+		try (Connection con = DriverManager.getConnection(URL, USER, PASS);
+			 PreparedStatement prst = con.prepareStatement(sql)) {
+			
+			for (Participant p: selectedParticipants) {
+				prst.setInt(1, p.getId());
+				prst.setInt(2, batchID);	
+				prst.addBatch();
+			}
+			
+			rowsAffected = prst.executeBatch();
+			
+		} catch (SQLException e) {
+			System.out.println("Error Scheduling Participants: " + e);
+			System.out.print("Stack Trace: ");
+			e.printStackTrace();
+		}
 		return rowsAffected;
 	}
 	
 	public List<Participant> filterParticipants(int batchID, List<Participant> allParticipants, List<Integer> enrolledParticipantIDs){
+		
+		List<Participant> participants = new ArrayList<>();
+		
+		for (Participant p: allParticipants) {
+			if (!enrolledParticipantIDs.contains(p.getId())) {
+				participants.add(p);
+			}
+		}
+		
+		return participants;
+	}
+	
+	public List<Participant> getEnrolledParticipants(int batchID, List<Participant> allParticipants, List<Integer> enrolledParticipantIDs){
 		
 		List<Participant> participants = new ArrayList<>();
 		

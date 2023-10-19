@@ -56,7 +56,6 @@ public class BatchDAO {
 		try (Connection con = DriverManager.getConnection(URL, USER, PASS);
 			 PreparedStatement prst = con.prepareStatement(sql)) {
 			
-			System.out.println("Query: " + prst);
 			result = prst.executeQuery();
 			while (result.next()) {
             	Batch batch = new Batch();

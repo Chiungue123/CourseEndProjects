@@ -50,28 +50,33 @@ public class ParticipantDAO {
 	
 	// TODO: Get ParticipantByID
 	public Participant getParticipantByID(int id) {
-		
-		ResultSet result = null;
-		String sql = "SELECT * FROM PARTICIPANT WHERE ID = ?";
-		Participant participant = new Participant();
-		
-		try (Connection con = DriverManager.getConnection(URL, USER, PASS);
-			 PreparedStatement prst = con.prepareStatement(sql)) {
-				
-				prst.setInt(1, id);
-				result = db.executeQuery(prst);
-            
-            	participant.setId(result.getInt("id"));
-            	participant.setName(result.getString("name"));
-            	participant.setEmail(result.getString("email"));
-				
-			} catch (SQLException e) {
-				System.out.println("Error Getting Participants: " + e);
-				System.out.print("Stack Trace: ");
-				e.printStackTrace();
-			}
-		
-		return participant;
+	    Participant participant = new Participant();
+	    String sql = "SELECT * FROM PARTICIPANT WHERE ID = ?";
+
+	    // Establishing DB connection and executing query
+	    try (Connection con = DriverManager.getConnection(URL, USER, PASS);
+	         PreparedStatement prst = con.prepareStatement(sql)) {
+
+	        prst.setInt(1, id);  // Set query parameter
+	        ResultSet result = db.executeQuery(prst);  // Execute query
+
+	        // Checking if ResultSet is empty
+	        if (result != null && result.next()) {
+	            // Populating participant object
+	            participant.setId(result.getInt("id"));
+	            participant.setName(result.getString("name"));
+	            participant.setEmail(result.getString("email"));
+	        } else {
+	            System.out.println("No participant found with ID: " + id);
+	        }
+
+	    } catch (SQLException e) {
+	        // Logging any SQL exceptions
+	        System.out.println("Error Getting Participants: " + e);
+	        e.printStackTrace();
+	    }
+
+	    return participant;
 	}
 	
 	// TODO: Read Participant

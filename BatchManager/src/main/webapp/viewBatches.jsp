@@ -19,9 +19,9 @@
             <tr>
                 <th>Batch ID</th>
                 <th>Name</th>
-             	<th>Participants</th>
+             	<th>Scheduled</th>
                 <th>Time Slot</th>
-                <th>Enroll</th>
+                <th>Participants</th>
             </tr>
         </thead>
         <tbody>
@@ -38,8 +38,14 @@
                 <td><%= batch.getTimeSlot() %></td>
                 <td>
                  <form action="BatchSignup" method="GET">
+		       		<input type="hidden" name="action" value="add>">
 		       		<input type="hidden" name="batchID" value="<%= batch.getBatchID() %>">
-		       		<input type="submit" value="Add Participants">
+		       		<input type="submit" value="Add">
+       			 </form>
+       			 <form action="BatchSignup" method="GET">
+		       		<input type="hidden" name="action" value="remove">
+		       		<input type="hidden" name="batchID" value="<%= batch.getBatchID() %>">
+		       		<input type="submit" value="Remove">
        			 </form>
         		</td>
             </tr>

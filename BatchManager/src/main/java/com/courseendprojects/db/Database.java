@@ -41,9 +41,7 @@ public class Database {
 		int rows = 0;
 		
 		try{
-			
 			rows = prst.executeUpdate();
-			//System.out.println("Query Successfully Executed");
 			
 		} catch(SQLException e){
 			System.out.println("Error Executing Update: " + e);
@@ -65,9 +63,7 @@ public class Database {
         ResultSet resultSet = null;
         
         try {
-       
             resultSet = prst.executeQuery();
-            //System.out.println("Statement Executed Successfully");
             
         } catch (Exception e) {
             System.out.println("Error Executing Query: " + e);

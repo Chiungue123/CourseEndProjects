@@ -43,12 +43,11 @@ public class BatchController extends HttpServlet {
 			for (Batch b: batches) {
 				Integer id = b.getBatchID();
 				List<Integer> participantIDs = dao.getBatchParticipantIDs(id);
-				System.out.println("Participant IDs: " + participantIDs);
-				
 				List<Participant> enrolledParticipants = dao.getEnrolledParticipants(id, participantIDs);
-				System.out.println("Batch: " + id + "| Enrolled Participants: " + enrolledParticipants);
+				//System.out.println("Batch: " + id + "| Enrolled Participants: " + enrolledParticipants);
 				b.setParticipants(enrolledParticipants);
 			}
+			System.out.println();
 			
 			request.setAttribute("batches", batches);
 			
